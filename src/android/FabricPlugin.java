@@ -139,11 +139,11 @@ public class FabricPlugin extends CordovaPlugin {
 		this.cordova.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				int len = data.lenght;
+				int len = data.length();
 				StackTraceElement[] st = new StackTraceElement[len];
 
 				for(int i = 0; i < len; i++) {
-					JSONObject json1 = args.optJSONObject(i);
+					JSONObject json = args.optJSONObject(i);
 					st[i] = new StackTraceElement("column:" + json.get("column"), json.get("methodName"), json.get("file"), json.get("lineNumber"));
 				}
 
