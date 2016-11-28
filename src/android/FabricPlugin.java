@@ -157,7 +157,6 @@ public class FabricPlugin extends CordovaPlugin {
 					Crashlytics.logException(exception);
 				} catch (JSONException e) {
 					//some exception handler code.
-					Log.d("EEEEE", e);
 
 				}
 
