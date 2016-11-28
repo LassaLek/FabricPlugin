@@ -144,8 +144,6 @@ public class FabricPlugin extends CordovaPlugin {
 					int len = jsonArr.length();
 					StackTraceElement[] st = new StackTraceElement[len];
 
-
-
 						for(int i = 0; i < len; i++) {
 
 							JSONObject json = jsonArr.optJSONObject(i);
