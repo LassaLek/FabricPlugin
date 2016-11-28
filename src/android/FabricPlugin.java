@@ -143,7 +143,7 @@ public class FabricPlugin extends CordovaPlugin {
 				StackTraceElement[] st = new StackTraceElement[len];
 
 				for(int i = 0; i < len; i++) {
-					JSONObject json = args.optJSONObject(i);
+					JSONObject json = data.optJSONObject(i);
 					st[i] = new StackTraceElement("column:" + json.get("column"), json.get("methodName"), json.get("file"), json.get("lineNumber"));
 				}
 
