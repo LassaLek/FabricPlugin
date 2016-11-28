@@ -136,15 +136,16 @@ public class FabricPlugin extends CordovaPlugin {
 	private void recordError(final JSONArray data,
 								   final CallbackContext callbackContext) {
 
-		StackTraceElement[] st = new StackTraceElement[1];
-		st[0] = new StackTraceElement("myClassName", "myMethodName", "myFileName", 42);
-		Throwable exception = new Throwable(data.optString(0));
-		exception.setStackTrace(st);
-
 		this.cordova.getActivity().runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Crashlytics.logException(exception);
+
+                StackTraceElement[] st = new StackTraceElement[1];
+                st[0] = new StackTraceElement("myClassName", "myMethodName", "myFileName", 42);
+                Throwable exception = new Throwable(data.optString(0));
+                exception.setStackTrace(st);
+
+                Crashlytics.logException(exception);
 			}
 		});
 	}
