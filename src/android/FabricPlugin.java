@@ -154,13 +154,14 @@ public class FabricPlugin extends CordovaPlugin {
 
 					Throwable exception = new Throwable(data.optString(0));
 					exception.setStackTrace(st);
+					Crashlytics.logException(exception);
 				} catch (JSONException e) {
 					//some exception handler code.
-					Throwable exception = new Throwable(data.toString());
+					Log.d("EEEEE", e);
 
 				}
 
-                Crashlytics.logException(exception);
+
 			}
 		});
 	}
