@@ -142,12 +142,14 @@ public class FabricPlugin extends CordovaPlugin {
 				int len = data.length();
 				StackTraceElement[] st = new StackTraceElement[len];
 
-
+                Log.e("Login attempt", json.toString());
 
 				try {
 					for(int i = 0; i < len; i++) {
+                        
 						JSONObject json = data.optJSONObject(i);
-						st[i] = new StackTraceElement("column:" + json.getString("column"), json.getString("methodName"), json.getString("file"), Integer.parseInt(json.getString("lineNumber")));
+                        Log.e("Login attempt", json.toString());
+						st[i] = new StackTraceElement("column:" + json.optString("column"), json.optString("methodName"), json.optString("file"), Integer.parseInt(json.optString("lineNumber")));
 					}
 				} catch (JSONException e) {
 					//some exception handler code.
