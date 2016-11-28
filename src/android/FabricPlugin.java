@@ -140,24 +140,25 @@ public class FabricPlugin extends CordovaPlugin {
 			@Override
 			public void run() {
 				try{
-                JSONArray jsonArr = new JSONArray(data.optString(1));
-				int len = jsonArr.length();
-				StackTraceElement[] st = new StackTraceElement[len];
+					JSONArray jsonArr = new JSONArray(data.optString(1));
+					int len = jsonArr.length();
+					StackTraceElement[] st = new StackTraceElement[len];
 
 
 
-					for(int i = 1; i < len; i++) {
+						for(int i = 1; i < len; i++) {
 
-						JSONObject json = jsonArr.optJSONObject(i);
-						st[i-1] = new StackTraceElement("column:" + json.optString("column"), json.optString("methodName"), json.optString("file"), Integer.parseInt(json.optString("lineNumber")));
-					}
+							JSONObject json = jsonArr.optJSONObject(i);
+							st[i-1] = new StackTraceElement("column:" + json.optString("column"), json.optString("methodName"), json.optString("file"), Integer.parseInt(json.optString("lineNumber")));
+						}
+
+					Throwable exception = new Throwable(data.optString(0));
+					exception.setStackTrace(st);
 				} catch (JSONException e) {
 					//some exception handler code.
-					Log.e("Login attempt", data.toString());
-				}
+					Throwable exception = new Throwable(data.toString());
 
-				Throwable exception = new Throwable(data.optString(0));
-                exception.setStackTrace(st);
+				}
 
                 Crashlytics.logException(exception);
 			}
