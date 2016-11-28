@@ -27,7 +27,8 @@ var FabricCrashlytics = (function () {
     }, {
         key: 'recordError',
         value: function recordError(message, code) {
-            window.fabric.core.execPlugin('recordError', [message, parse(code)]);
+            var lines = code.split('\n');
+            window.fabric.core.execPlugin('recordError', [lines[0]||message, parse(lines)]);
         }
     }, {
         key: 'setUserIdentifier',
@@ -76,7 +77,7 @@ function parse(stackString) {
     var chrome = /^\s*at (?:(?:(?:Anonymous function)?|((?:\[object object\])?\S+(?: \[as \S+\])?)) )?\(?((?:file|http|https):.*?):(\d+)(?::(\d+))?\)?\s*$/i,
             gecko = /^(?:\s*([^@]*)(?:\((.*?)\))?@)?(\S.*?):(\d+)(?::(\d+))?\s*$/i,
             node  = /^\s*at (?:((?:\[object object\])?\S+(?: \[as \S+\])?) )?\(?(.*?):(\d+)(?::(\d+))?\)?\s*$/i,
-            lines = stackString.split('\n'),
+            lines = stackString,
             stack = [],
             parts,
             element;

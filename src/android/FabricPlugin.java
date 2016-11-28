@@ -144,17 +144,16 @@ public class FabricPlugin extends CordovaPlugin {
 					int len = jsonArr.length();
 					StackTraceElement[] st = new StackTraceElement[len];
 
-						for(int i = 0; i < len; i++) {
-
-							JSONObject json = jsonArr.optJSONObject(i);
-							st[i] = new StackTraceElement("column:" + json.optString("column"), json.optString("methodName"), json.optString("file"), Integer.parseInt(json.optString("lineNumber")));
-						}
+                    for(int i = 0; i < len; i++) {
+                        JSONObject json = jsonArr.optJSONObject(i);
+                        st[i] = new StackTraceElement("JS:" /*json.optString("column")/*/, json.optString("methodName"), json.optString("file"), Integer.parseInt(json.optString("lineNumber")));
+                    }
 
 					Throwable exception = new Throwable(data.optString(0));
 					exception.setStackTrace(st);
 					Crashlytics.logException(exception);
 				} catch (JSONException e) {
-					//some exception handler code.
+					//throw new Exception(e);
 
 				}
 
