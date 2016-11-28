@@ -50,6 +50,8 @@ public class FabricPlugin extends CordovaPlugin {
 			sendCrash(data, callbackContext);
 		} else if (action.equals("sendNonFatalCrash")) {
 			sendNonFatalCrash(data, callbackContext);
+		} else if (action.equals("recordError")) {
+			recordError(data, callbackContext);
 		} else if (action.equals("setUserIdentifier")) {
 			setUserIdentifier(data, callbackContext);
 		} else if (action.equals("setUserName")) {
@@ -127,6 +129,22 @@ public class FabricPlugin extends CordovaPlugin {
 			@Override
 			public void run() {
 				Crashlytics.logException(new Throwable(data.optString(0, "No Message Provided")));
+			}
+		});
+	}
+
+	private void recordError(final JSONArray data,
+								   final CallbackContext callbackContext) {
+
+		StackTraceElement[] st = new StackTraceElement[1];
+		st[0] = new StackTraceElement("myClassName", "myMethodName", "myFileName", 42);
+		Throwable exception = new Throwable(data.optString(0));
+		exception.setStackTrace(st);
+
+		this.cordova.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Crashlytics.logException(exception);
 			}
 		});
 	}

@@ -27,6 +27,7 @@ var FabricCrashlytics = (function () {
     }, {
         key: 'recordError',
         value: function recordError(message, code) {
+            // TODO parse code
             window.fabric.core.execPlugin('recordError', [message, code]);
         }
     }, {
